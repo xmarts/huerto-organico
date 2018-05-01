@@ -30,8 +30,7 @@ class WebsiteSale(WebsiteSale_options):
         result['website_sale.cart_lines'] = request.env['ir.ui.view'].render_template("website_sale.cart_lines", {
             'website_sale_order': order,
             'compute_currency': lambda price: from_currency.compute(price, to_currency),
-            'suggested_products': order._cart_accessories(),
-            'need_product': order._needed_accessories(result['public_categ_ids'])
+            'suggested_products': order._cart_accessories()
         })
 
         return result
