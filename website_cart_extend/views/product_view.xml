@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Product Public Categories -->
+    <record id="product_public_category_form_view" model="ir.ui.view">
+        <field name="name">product.public.category.form</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sequence']" position="after">
+                <field name="dependecy_website_ids" widget="many2many_tags" options="{'no_open' : True, 'no_create_edit' : True}">
+                    <tree>
+                        <field name="parent_website_id"/>
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+
+    </record>
+
+</odoo>

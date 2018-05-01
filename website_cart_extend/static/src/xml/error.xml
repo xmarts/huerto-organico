@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="error" inherit_id="website_sale.cart_lines" customize_show="True" name="Error">
+        <xpath expr="//table[@id='cart_products']" position="before">
+            <h5 class='text-muted js_cart_lines' t-if="need_product">Required accessories:</h5>
+            <table t-if="need_product" class="js_cart_lines table table-striped table-condensed">
+                <tbody>
+                    <tr t-foreach="need_product" t-as="product">
+                        <td class='td-img'>
+                            <a t-attf-href="/shop/product/#{ slug(product.product_tmpl_id) }">
+                                <span t-field="product.image_small" t-options="{'widget': 'image', 'class': 'img-rounded'}" />
+                            </a>
+                        </td>
+                        <td class='td-product_name'>
+                            <div>
+                                <a t-attf-href="/shop/product/#{ slug(product.product_tmpl_id) }">
+                                    <strong t-field="product.display_name" />
+                                </a>
+                            </div>
+                            <div class="text-muted hidden-xs" t-field="product.description_sale" />
+                        </td>
+                        <td class='td-price'>
+                            <t t-if="product.website_price_difference  and website.get_current_pricelist().discount_policy=='without_discount'">
+                                <del class="text-danger mr8" style="white-space: nowrap;" t-field="product.lst_price" t-options="{'widget': 'monetary','from_currency': product.currency_id, 'display_currency': website.currency_id}" />
+                            </t>
+                            <span t-field="product.website_price" style="white-space: nowrap;" t-options="{'widget': 'monetary','display_currency': website.currency_id}" />
+                        </td>
+                        <td class="col-md-2 col-sm-3 col-xs-4 text-center">
+                            <input class="js_quantity" name="product_id" t-att-data-product-id="product.id" type="hidden" />
+                            <a class="btn btn-link js_add_suggested_products">
+                                <strong>Add to Cart</strong>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </xpath>
+    </template>
+</odoo>
